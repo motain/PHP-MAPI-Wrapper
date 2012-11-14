@@ -86,7 +86,7 @@ class BCMAPICache
 	 * @param string [$key] The cache file key
 	 * @return mixed The cached data if valid, otherwise FALSE
 	 */
-	public function get($key)
+	public static function get($key)
 	{
 		if(self::$type == 'file')
 		{
@@ -120,7 +120,7 @@ class BCMAPICache
 	 * @param string [$key] The cache file key
 	 * @param mixed [$data] The data to cache
 	 */
-	public function set($key, $data)
+	public static function set($key, $data)
 	{
 		if(self::$type == 'file')
 		{
