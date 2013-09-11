@@ -80,18 +80,30 @@ class BCMAPI
 		'video'
 	);
 
-	/**
+    /**
 	 * The constructor for the BCMAPI class.
 	 * @access Public
 	 * @since 0.1.0
 	 * @param string [$token_read] The read API token for the Brightcove account
 	 * @param string [$token_write] The write API token for the Brightcove account
 	 */
-	public function __construct($token_read = NULL, $token_write = NULL)
+	public function __construct($token_read = NULL, $token_write = NULL,
+        $cache = array(
+            'type'      => 'file',
+            'time'      => 600,
+            'location'  => '/tmp/bcmapi/',
+            'extension' => '.cache',
+            'port'      => 11211
+
+        )
+    )
 	{
 		$this->token_read = $token_read;
 		$this->token_write = $token_write;
 		$this->bit32 = ((string)'99999999999999' == (int)'99999999999999') ? FALSE : TRUE;
+        if (class_exists('BCMAPICache')) {
+            BCMAPICache::init($cache['type'], $cache['time'], $cache['location'], $cache['extension'], $cache['port']);
+        }
 	}
 
 	/**
